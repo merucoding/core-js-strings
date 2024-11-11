@@ -20,7 +20,7 @@
  *   getStringLength(undefined) => 0
  */
 function getStringLength(value) {
-  return value ? value.length : 0;
+  return typeof value === 'string' ? value.length : 0;
 }
 
 /**
@@ -147,10 +147,10 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  const index = str.indexOf(value);
-  return str.includes(value)
-    ? str.slice(0, index) + str.slice(index + value.length, str.length)
-    : str;
+  return str.replace(
+    str.slice(str.indexOf(value), str.indexOf(value) + value.length),
+    ''
+  );
 }
 
 /**
@@ -237,10 +237,7 @@ function endsWith(str, substr) {
  *   formatTime(0, 0) => "00:00"
  */
 function formatTime(minutes, seconds) {
-  const min = minutes.length > 1 ? minutes : String(minutes).padStart(2, '0');
-  const sec = seconds.length > 1 ? seconds : String(seconds).padStart(2, '0');
-
-  return `${min}:${sec}`;
+  return `${String(minutes).padStart(2, 0)}:${String(seconds).padStart(2, 0)}`;
 }
 
 /**
